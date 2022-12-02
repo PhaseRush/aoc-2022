@@ -30,8 +30,9 @@ pub fn part_two(input: &str) -> Option<u32> {
     ]);
 
     for matchup in input.split("\n") {
-        score += pairings.get(&*matchup.chars().nth((2)).unwrap().to_string()).unwrap()
-            .get(&*matchup.chars().nth((0)).unwrap().to_string()).unwrap();
+        score += pairings
+            .get(&matchup[2..3]).unwrap()
+            .get(&matchup[0..1]).unwrap();
     }
     return Some(score);
 }
