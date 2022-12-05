@@ -1,3 +1,25 @@
+fn get_stacks() -> Vec<Vec<&'static str>> {
+    return vec![
+        vec!["Z", "J", "G"],
+        vec!["Q", "L", "R", "P", "W", "F", "V", "C"],
+        vec!["F", "P", "M", "C", "L", "G", "R"],
+        vec!["L", "F", "B", "W", "P", "H", "M"],
+        vec!["G", "C", "F", "S", "V", "Q"],
+        vec!["W", "H", "J", "Z", "M", "Q", "T", "L"],
+        vec!["H", "F", "S", "B", "V"],
+        vec!["F", "J", "Z", "S"],
+        vec!["M", "C", "D", "P", "F", "H", "B", "T"],
+    ];
+}
+
+fn get_small_stacks() -> Vec<Vec<&'static str>> {
+    return vec![
+        vec!["Z", "N"],
+        vec!["M", "C", "D"],
+        vec!["P"],
+    ];
+}
+
 pub fn get_tops(stacks: Vec<Vec<&str>>) -> String {
     let mut tops = String::new();
     for i in 0..stacks.len() {
@@ -8,22 +30,7 @@ pub fn get_tops(stacks: Vec<Vec<&str>>) -> String {
 }
 
 pub fn part_one(input: &str) -> Option<String> {
-    // let mut stacks: Vec<Vec<&str>> = vec![
-    //     vec!["Z","N"],
-    //     vec!["M", "C", "D"],
-    //     vec!["P"]
-    // ];
-    let mut stacks: Vec<Vec<&str>> = vec![
-        vec!["Z", "J", "G"],
-        vec!["Q", "L", "R", "P", "W", "F", "V", "C"],
-        vec!["F", "P", "M", "C", "L", "G", "R"],
-        vec!["L", "F", "B", "W", "P", "H", "M"],
-        vec!["G", "C", "F", "S", "V", "Q"],
-        vec!["W", "H", "J", "Z", "M", "Q", "T", "L"],
-        vec!["H", "F", "S", "B", "V"],
-        vec!["F", "J", "Z", "S"],
-        vec!["M", "C", "D", "P", "F", "H", "B", "T"],
-    ];
+    let mut stacks = get_stacks();
     for line in input.split("\n") {
         let words = line.split_whitespace()
             .map(str::to_string)
@@ -34,14 +41,8 @@ pub fn part_one(input: &str) -> Option<String> {
         let dest = words[5].parse::<usize>().unwrap() - 1;
 
         for _i in 0..quantity {
-            // println!("{:?}", stacks[origin]);
             let item = stacks[origin].pop().unwrap();
-            // println!("{:?}", stacks[origin]);
-
-            // println!("{:?}", stacks[dest]);
             stacks[dest].push(item);
-            // println!("{:?}", stacks[dest]);
-
             println!()
         }
     }
@@ -51,22 +52,7 @@ pub fn part_one(input: &str) -> Option<String> {
 
 
 pub fn part_two(input: &str) -> Option<String> {
-    let mut stacks: Vec<Vec<&str>> = vec![
-        vec!["Z", "J", "G"],
-        vec!["Q", "L", "R", "P", "W", "F", "V", "C"],
-        vec!["F", "P", "M", "C", "L", "G", "R"],
-        vec!["L", "F", "B", "W", "P", "H", "M"],
-        vec!["G", "C", "F", "S", "V", "Q"],
-        vec!["W", "H", "J", "Z", "M", "Q", "T", "L"],
-        vec!["H", "F", "S", "B", "V"],
-        vec!["F", "J", "Z", "S"],
-        vec!["M", "C", "D", "P", "F", "H", "B", "T"],
-    ];
-    // let mut stacks: Vec<Vec<&str>> = vec![
-    //     vec!["Z","N"],
-    //     vec!["M", "C", "D"],
-    //     vec!["P"]
-    // ];
+    let mut stacks: Vec<Vec<&str>> = get_stacks();
     for line in input.split("\n") {
         let words = line.split_whitespace()
             .map(str::to_string)
@@ -81,7 +67,6 @@ pub fn part_two(input: &str) -> Option<String> {
             to_move.push(stacks[origin].pop().unwrap());
         }
         to_move.reverse();
-        // println!("{:?}", to_move);
         stacks[dest].extend(to_move);
     }
 
