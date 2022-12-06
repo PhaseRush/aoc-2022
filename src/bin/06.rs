@@ -1,25 +1,25 @@
 use std::collections::HashSet;
 
-pub fn part_one(input: &str) -> Option<u32> {
-    for i in 4..input.len() {
-        let substr = &input[i - 4..i];
+
+fn sliding_window(input: &&str, width: usize) -> Option<u32> {
+    for i in width..input.len() {
+        let substr = &input[i - width..i];
         let set: HashSet<char> = substr.chars().into_iter().collect();
-        if set.len() == 4 {
-            return Some((i) as u32);
+        if set.len() == width {
+            return Some(i as u32);
         }
     }
     return None;
 }
 
+
+pub fn part_one(input: &str) -> Option<u32> {
+    sliding_window(&input, 4)
+}
+
+
 pub fn part_two(input: &str) -> Option<u32> {
-    for i in 14..input.len() {
-        let substr = &input[i - 14..i];
-        let set: HashSet<char> = substr.chars().into_iter().collect();
-        if set.len() == 14 {
-            return Some((i) as u32);
-        }
-    }
-    return None;
+    sliding_window(&input, 14)
 }
 
 fn main() {
